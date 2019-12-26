@@ -36,7 +36,7 @@
             System.Windows.Forms.Label label1;
             Bunifu.Framework.UI.BunifuImageButton bunifuImageButton4;
             Bunifu.Framework.UI.BunifuImageButton bunifuImageButton5;
-            BunifuAnimatorNS.Animation animation4 = new BunifuAnimatorNS.Animation();
+            BunifuAnimatorNS.Animation animation2 = new BunifuAnimatorNS.Animation();
             this.panel1 = new System.Windows.Forms.Panel();
             this.panel2 = new System.Windows.Forms.Panel();
             this.info1 = new System.Windows.Forms.GroupBox();
@@ -51,7 +51,7 @@
             this.txt_name = new Bunifu.Framework.UI.BunifuMaterialTextbox();
             this.info2 = new System.Windows.Forms.GroupBox();
             this.linkLabel1 = new System.Windows.Forms.LinkLabel();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.img_box = new System.Windows.Forms.PictureBox();
             this.label2 = new System.Windows.Forms.Label();
             this.rate = new Bunifu.Framework.UI.BunifuRating();
             this.label4 = new System.Windows.Forms.Label();
@@ -60,6 +60,7 @@
             this.btn_add_product = new Bunifu.Framework.UI.BunifuThinButton2();
             this.bunifuTransition1 = new BunifuAnimatorNS.BunifuTransition(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.timer = new System.Windows.Forms.Timer(this.components);
             bunifuImageButton3 = new Bunifu.Framework.UI.BunifuImageButton();
             bunifuImageButton2 = new Bunifu.Framework.UI.BunifuImageButton();
             bunifuImageButton1 = new Bunifu.Framework.UI.BunifuImageButton();
@@ -74,7 +75,7 @@
             this.panel1.SuspendLayout();
             this.info1.SuspendLayout();
             this.info2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.img_box)).BeginInit();
             this.SuspendLayout();
             // 
             // bunifuImageButton3
@@ -296,7 +297,6 @@
             this.txt_price.Name = "txt_price";
             this.txt_price.Size = new System.Drawing.Size(225, 33);
             this.txt_price.TabIndex = 8;
-            this.txt_price.Text = "Enter the price...";
             this.txt_price.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // bunifuCustomLabel4
@@ -328,7 +328,6 @@
             this.txt_owner.Name = "txt_owner";
             this.txt_owner.Size = new System.Drawing.Size(225, 33);
             this.txt_owner.TabIndex = 6;
-            this.txt_owner.Text = "Enter owner ...";
             this.txt_owner.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // bunifuCustomLabel1
@@ -360,13 +359,13 @@
             this.txt_name.Name = "txt_name";
             this.txt_name.Size = new System.Drawing.Size(225, 33);
             this.txt_name.TabIndex = 0;
-            this.txt_name.Text = "Enter product name ...";
+            this.txt_name.Tag = "";
             this.txt_name.TextAlign = System.Windows.Forms.HorizontalAlignment.Left;
             // 
             // info2
             // 
             this.info2.Controls.Add(this.linkLabel1);
-            this.info2.Controls.Add(this.pictureBox1);
+            this.info2.Controls.Add(this.img_box);
             this.info2.Controls.Add(this.label2);
             this.info2.Controls.Add(this.rate);
             this.info2.Controls.Add(this.label4);
@@ -392,21 +391,24 @@
             this.linkLabel1.TabIndex = 11;
             this.linkLabel1.TabStop = true;
             this.linkLabel1.Text = "Choose image ..";
+            this.linkLabel1.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.linkLabel1_LinkClicked);
+            this.linkLabel1.Click += new System.EventHandler(this.linkLabel1_LinkClicked);
             // 
-            // pictureBox1
+            // img_box
             // 
-            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-            this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.bunifuTransition1.SetDecoration(this.pictureBox1, BunifuAnimatorNS.DecorationType.None);
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.ImageLocation = "";
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(107, 236);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(75, 65);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 10;
-            this.pictureBox1.TabStop = false;
+            this.img_box.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.img_box.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.bunifuTransition1.SetDecoration(this.img_box, BunifuAnimatorNS.DecorationType.None);
+            this.img_box.Image = ((System.Drawing.Image)(resources.GetObject("img_box.Image")));
+            this.img_box.ImageLocation = "";
+            this.img_box.InitialImage = null;
+            this.img_box.Location = new System.Drawing.Point(107, 236);
+            this.img_box.Name = "img_box";
+            this.img_box.Size = new System.Drawing.Size(75, 65);
+            this.img_box.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.img_box.TabIndex = 10;
+            this.img_box.TabStop = false;
+            this.img_box.Click += new System.EventHandler(this.linkLabel1_LinkClicked);
             // 
             // label2
             // 
@@ -495,28 +497,32 @@
             // 
             this.bunifuTransition1.AnimationType = BunifuAnimatorNS.AnimationType.Transparent;
             this.bunifuTransition1.Cursor = null;
-            animation4.AnimateOnlyDifferences = true;
-            animation4.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.BlindCoeff")));
-            animation4.LeafCoeff = 0F;
-            animation4.MaxTime = 1F;
-            animation4.MinTime = 0F;
-            animation4.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.MosaicCoeff")));
-            animation4.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation4.MosaicShift")));
-            animation4.MosaicSize = 0;
-            animation4.Padding = new System.Windows.Forms.Padding(0);
-            animation4.RotateCoeff = 0F;
-            animation4.RotateLimit = 0F;
-            animation4.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.ScaleCoeff")));
-            animation4.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation4.SlideCoeff")));
-            animation4.TimeCoeff = 0F;
-            animation4.TransparencyCoeff = 1F;
-            this.bunifuTransition1.DefaultAnimation = animation4;
+            animation2.AnimateOnlyDifferences = true;
+            animation2.BlindCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.BlindCoeff")));
+            animation2.LeafCoeff = 0F;
+            animation2.MaxTime = 1F;
+            animation2.MinTime = 0F;
+            animation2.MosaicCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicCoeff")));
+            animation2.MosaicShift = ((System.Drawing.PointF)(resources.GetObject("animation2.MosaicShift")));
+            animation2.MosaicSize = 0;
+            animation2.Padding = new System.Windows.Forms.Padding(0);
+            animation2.RotateCoeff = 0F;
+            animation2.RotateLimit = 0F;
+            animation2.ScaleCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.ScaleCoeff")));
+            animation2.SlideCoeff = ((System.Drawing.PointF)(resources.GetObject("animation2.SlideCoeff")));
+            animation2.TimeCoeff = 0F;
+            animation2.TransparencyCoeff = 1F;
+            this.bunifuTransition1.DefaultAnimation = animation2;
             // 
             // contextMenuStrip1
             // 
             this.bunifuTransition1.SetDecoration(this.contextMenuStrip1, BunifuAnimatorNS.DecorationType.None);
             this.contextMenuStrip1.Name = "contextMenuStrip1";
             this.contextMenuStrip1.Size = new System.Drawing.Size(61, 4);
+            // 
+            // timer
+            // 
+            this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
             // Form2
             // 
@@ -532,6 +538,8 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Form2";
             this.Text = "Form2";
+            this.Activated += new System.EventHandler(this.Form2_Load);
+            this.Load += new System.EventHandler(this.Form2_Load);
             ((System.ComponentModel.ISupportInitialize)(bunifuImageButton3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(bunifuImageButton2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(bunifuImageButton1)).EndInit();
@@ -543,7 +551,7 @@
             this.info1.PerformLayout();
             this.info2.ResumeLayout(false);
             this.info2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.img_box)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -563,7 +571,7 @@
         private Bunifu.Framework.UI.BunifuCustomLabel bunifuCustomLabel2;
         private Bunifu.Framework.UI.BunifuThinButton2 btn_add_cat;
         private System.Windows.Forms.LinkLabel linkLabel1;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox img_box;
         private System.Windows.Forms.Label label2;
         private Bunifu.Framework.UI.BunifuRating rate;
         private System.Windows.Forms.Label label4;
@@ -573,5 +581,6 @@
         private System.Windows.Forms.ComboBox category;
         private BunifuAnimatorNS.BunifuTransition bunifuTransition1;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.Timer timer;
     }
 }
