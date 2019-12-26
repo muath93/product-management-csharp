@@ -30,28 +30,12 @@ namespace Database_Manipulation
 
         private void form_activated(object sender, EventArgs e)
         {
-            con.ConnectionString = (@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=c:\users\dell\source\repos\Database-Manipulation\Database-Manipulation\Database1.mdf;Integrated Security=True");
-
-            var sql = "SELECT product_id, title, owner, category, price, rate FROM product";
-            adapter = new SqlDataAdapter(sql, con);
-            adapter.Fill(dt);
-
-            dt.Columns["product_id"].ColumnName = "الرقم التسلسلي";
-            dt.Columns["title"].ColumnName = "العنوان";
-            dt.Columns["owner"].ColumnName = "المالك";
-            dt.Columns["category"].ColumnName = "الفئة";
-            dt.Columns["price"].ColumnName = "السعر";
-            dt.Columns["rate"].ColumnName = "التقييم";
-
-
-            dataGridView1.DataSource = dt;
-
-           
+ 
         }
 
         private void bunifuImageButton1_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            this.Close();
         }
 
         private void bunifuImageButton2_Click(object sender, EventArgs e)
@@ -114,6 +98,33 @@ namespace Database_Manipulation
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void add_Click(object sender, EventArgs e)
+        {
+            Form form_add = new Form2();
+            
+            bunifuTransition1.ShowSync(form_add);
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            con.ConnectionString = (@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=c:\users\dell\source\repos\Database-Manipulation\Database-Manipulation\Database1.mdf;Integrated Security=True");
+
+            var sql = "SELECT product_id, title, owner, category, price, rate FROM product";
+            adapter = new SqlDataAdapter(sql, con);
+            adapter.Fill(dt);
+
+
+            dt.Columns["product_id"].ColumnName = "الرقم التسلسلي";
+            dt.Columns["title"].ColumnName = "العنوان";
+            dt.Columns["owner"].ColumnName = "المالك";
+            dt.Columns["category"].ColumnName = "الفئة";
+            dt.Columns["price"].ColumnName = "السعر";
+            dt.Columns["rate"].ColumnName = "التقييم";
+
+
+            dataGridView1.DataSource = dt;
         }
     }
 }
