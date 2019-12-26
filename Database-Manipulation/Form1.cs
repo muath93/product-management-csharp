@@ -123,8 +123,11 @@ namespace Database_Manipulation
             dt.Columns["price"].ColumnName = "السعر";
             dt.Columns["rate"].ColumnName = "التقييم";
 
-
+            
             dataGridView1.DataSource = dt;
+            dataGridView1.ReadOnly = true;
+
+
         }
     }
 }
